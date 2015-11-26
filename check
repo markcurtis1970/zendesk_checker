@@ -1,0 +1,47 @@
+#!/usr/bin/env python2.7
+
+import os
+import sys
+import re
+import shutil
+from dszendesk import ZenDesk
+tickets = [ ]
+directories = [ ]
+
+def main():
+    # define regex pattern and path
+    pattern = "(^[0-9]{5}$)"
+    path = '/Users/mark/Issues'
+    print "=== Searching for ", pattern, " in ", path, " ===== Hit CTRL+C to abort! ==="
+    # Use os.walk to find all the directories under the path
+    for dirname, dirnames, filenames in os.walk(path):
+        for dir in dirnames:
+            matched = re.match( pattern, dir, re.M)
+            if matched:
+                # put ticket names into list
+                tickets.append (matched.group(0))
+                # put dirctory paths into list
+                directories.append (dirname+"/"+dir)
+
+    zd = ZenDesk()
+    # Ensure our authentication is correct
+    zd.authenticate()
+
+    # Find the ticket status
+    for idx in range (0, len(tickets)-1):
+        print "checking ", tickets[idx], directories[idx],
+        status = zd.get_ticket_status(tickets[idx])
+        # Issue the deletion statements if status is closed
+        if (status == "closed") or (status == "solved"):
+            print status, "- removing"
+            shutil.rmtree(directories[idx])
+        else:
+            print status
+
+
+
+if __name__ == "__main__":
+    try:
+        main()
+    except KeyboardInterrupt:
+        print
