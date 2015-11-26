@@ -13,6 +13,8 @@ https://github.com/joaquincasares/zendesk_downloader
 Setup
 -----
 
+**Please note: the path and pattern are still hard coded in the "check" file** you'll need to change this manually for now, until I move it into the cfg file
+
 First install the requests package by running:
 
     pip install requests
