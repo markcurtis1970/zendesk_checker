@@ -1,3 +1,8 @@
+Overview
+--------
+
+The idea of this is simple. Often we'll download files from tickets and eventually fill up your drive and then spend hours deleting the closed tickets after checking they are solved / closed. So this script will run through the ticket status, check if they are solved or closed and then delete the local directories you have for them.
+
 Acknowledgements
 ----------------
 
@@ -7,6 +12,8 @@ https://github.com/joaquincasares/zendesk_downloader
 
 Setup
 -----
+
+**Please note: the path and pattern are still hard coded in the "check" file** you'll need to change this manually for now, until I move it into the cfg file
 
 First install the requests package by running:
 
