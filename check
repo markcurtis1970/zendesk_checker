@@ -4,13 +4,19 @@ import os
 import sys
 import re
 import shutil
+import ConfigParser
 from dszendesk import ZenDesk
 tickets = [ ]
 directories = [ ]
 
 def main():
+    print ">>> Checking zendesk login ..."
+    # Ensure our authentication is correct
+    zd = ZenDesk()
+    zd.authenticate()
     # define regex pattern and path
     pattern = "(^[0-9]{5}$)"
+    print ">>> Using download directory",zd.download_directory,"from",zd.configfile,"..."
     path = '/Users/mark/Issues'
     print "=== Searching for ", pattern, " in ", path, " ===== Hit CTRL+C to abort! ==="
     # Use os.walk to find all the directories under the path
@@ -22,10 +28,6 @@ def main():
                 tickets.append (matched.group(0))
                 # put dirctory paths into list
                 directories.append (dirname+"/"+dir)
-
-    zd = ZenDesk()
-    # Ensure our authentication is correct
-    zd.authenticate()
 
     # Find the ticket status
     for idx in range (0, len(tickets)-1):

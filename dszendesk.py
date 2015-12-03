@@ -28,6 +28,7 @@ class ZenDesk(object):
         if os.path.exists(configfile):
             config.read(configfile)
 
+        self.configfile = configfile
         self.domain = config.get('ZenDesk', 'domain') if config.has_option('ZenDesk', 'domain') else raw_input('Zendesk Domain: ')
         self.admin_email = config.get('ZenDesk', 'email') if config.has_option('ZenDesk', 'email') else raw_input('Zendesk Email Address: ')
         self.admin_password = config.get('ZenDesk', 'pass') if config.has_option('ZenDesk', 'pass') and config.get('ZenDesk', 'pass') else getpass.getpass()
@@ -42,7 +43,7 @@ class ZenDesk(object):
                 self.admin_email = raw_input('Zendesk Email Address: ')
                 self.admin_password = getpass.getpass()
             else:
-                print 'Successfully authenticated to ZenDesk!'
+                print '>>> Successfully authenticated to ZenDesk!'
                 break
 
     def get_users_by_page(self, page_num=1):
