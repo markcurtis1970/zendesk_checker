@@ -17,7 +17,7 @@ def main():
     # define regex pattern and path
     pattern = "(^[0-9]{5}$)"
     print ">>> Using download directory",zd.download_directory,"from",zd.configfile,"..."
-    path = '/Users/mark/Issues'
+    path = zd.download_directory
     print "=== Searching for ", pattern, " in ", path, " ===== Hit CTRL+C to abort! ==="
     # Use os.walk to find all the directories under the path
     for dirname, dirnames, filenames in os.walk(path):
@@ -31,7 +31,7 @@ def main():
 
     # Find the ticket status
     for idx in range (0, len(tickets)-1):
-        print "checking ", tickets[idx], directories[idx],
+        print "checking ", tickets[idx], directories[idx], "...",
         status = zd.get_ticket_status(tickets[idx])
         # Issue the deletion statements if status is closed
         if (status == "closed") or (status == "solved"):
