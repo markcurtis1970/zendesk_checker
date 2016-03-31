@@ -8,16 +8,22 @@ import ConfigParser
 from dszendesk import ZenDesk
 tickets = [ ]
 directories = [ ]
+path = ""
 
 def main():
     print ">>> Checking zendesk login ..."
     # Ensure our authentication is correct
+    global zd 
+    global path
     zd = ZenDesk()
     zd.authenticate()
+    path = zd.download_directory
+    print ">>> Using download directory",zd.download_directory,"from",zd.configfile,"..."
+
+def check_tickets():
+    print ">>> Checking ticket status ..."
     # define regex pattern and path
     pattern = "(^[0-9]{5}$)"
-    print ">>> Using download directory",zd.download_directory,"from",zd.configfile,"..."
-    path = zd.download_directory
     print "=== Searching for ", pattern, " in ", path, " ===== Hit CTRL+C to abort! ==="
     # Use os.walk to find all the directories under the path
     for dirname, dirnames, filenames in os.walk(path):
@@ -40,10 +46,18 @@ def main():
         else:
             print status
 
-
+def check_dirs():
+    # Check all customer directories to see if they're empty
+    print ">>> Checking unused customer directories..."
+    for cust_dir in os.listdir(path):
+        if os.path.isdir(cust_dir) and not os.listdir(cust_dir):
+            print cust_dir + ' is empty, -- removing'
+            shutil.rmtree(cust_dir)
 
 if __name__ == "__main__":
     try:
         main()
+        check_dirs()
+        check_tickets()
     except KeyboardInterrupt:
         print

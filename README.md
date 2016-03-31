@@ -1,7 +1,7 @@
 Overview
 --------
 
-The idea of this is simple. Often we'll download files from tickets and eventually fill up your drive and then spend hours deleting the closed tickets after checking they are solved / closed. So this script will run through the ticket status, check if they are solved or closed and then delete the local directories you have for them.
+The idea of this is simple; Often we'll download files from tickets and eventually fill up our disk drive and then spend ages deleting the closed tickets after checking they are solved / closed. So this script will run through the ticket status, check if they are solved or closed and then delete the local directories you have for them.
 
 Acknowledgements
 ----------------
