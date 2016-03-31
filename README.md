@@ -39,5 +39,5 @@ Usage
 -----
 
     chmod a+x ./check
-    ./check 
+    ./check.py 
 
