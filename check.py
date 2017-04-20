@@ -8,7 +8,7 @@ import ConfigParser
 from dszendesk import ZenDesk
 tickets = [ ]
 directories = [ ]
-path = ""
+path = "/Users/mark/Issues"
 
 def main():
     print ">>> Checking zendesk login ..."
@@ -50,9 +50,10 @@ def check_dirs():
     # Check all customer directories to see if they're empty
     print ">>> Checking unused customer directories..."
     for cust_dir in os.listdir(path):
-        if os.path.isdir(cust_dir) and not os.listdir(cust_dir):
+        cust_dir_path = path + '/' + cust_dir
+        if os.path.isdir(cust_dir_path) and not os.listdir(cust_dir_path):
             print cust_dir + ' is empty, -- removing'
-            shutil.rmtree(cust_dir)
+            shutil.rmtree(cust_dir_path)
 
 if __name__ == "__main__":
     try:
