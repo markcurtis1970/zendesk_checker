@@ -27,7 +27,7 @@ This is mine:
     [ZenDesk]
     domain = support.yourcompany.com
     email = you@<domain>.com/token
-    pass = <password>
+    pass = <TOKEN>
 
     [Downloader]
     download_directory = /Users/you/Issues
